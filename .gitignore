@@ -20,7 +20,6 @@
 *.xdv
 
 # PDF e altri output finali
-*.pdf
 *.dvi
 *.ps
 
