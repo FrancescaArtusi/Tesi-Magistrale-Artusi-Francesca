@@ -1,0 +1,45 @@
+# File di compilazione LaTeX
+*.aux
+*.lof
+*.log
+*.lot
+*.fls
+*.out
+*.toc
+*.fmt
+*.fot
+*.cb
+*.cb2
+*.bbl
+*.blg
+*.synctex.gz
+*.fdb_latexmk
+*.nav
+*.snm
+*.vrb
+*.xdv
+
+# PDF e altri output finali
+*.pdf
+*.dvi
+*.ps
+
+# Cartelle temporanee
+_build/
+build/
+output/
+tmp/
+
+# Editor di testo
+*.swp
+*.swo
+*~
+*.bak
+
+# VSCode settings
+.vscode/
+
+# MacOS / Windows spazzatura
+.DS_Store
+Thumbs.db
+desktop.ini
