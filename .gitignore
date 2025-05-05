@@ -18,6 +18,8 @@
 *.snm
 *.vrb
 *.xdv
+*.bcf
+*.run.xml
 
 # PDF e altri output finali
 *.dvi
