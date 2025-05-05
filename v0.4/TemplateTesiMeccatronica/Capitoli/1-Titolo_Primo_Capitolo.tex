@@ -1,0 +1,47 @@
+\chapter{Titolo del primo capitolo}
+
+\section{Introduzione}
+
+Primo capitolo della tesi. Esempio di citazione singola \cite{Bolognani-Zigliotto}.
+
+Esempio di equazione c:
+
+\begin{equation}
+\label{EQN:esempio}
+a + b = 42
+\end{equation}
+
+L'equazione si richiama nel testo così: (\ref{EQN:esempio}). Esempio di due equazioni incolonnate:
+
+\begin{equation}
+\label{EQN:esempio2}
+\begin{array}{rcl}
+a + b & = & 42 \\
+d + e & = & f
+\end{array}
+\end{equation}
+
+Attenzione alle righe vuote in \LaTeX\ anche dopo le formule e le figure!!!
+Osservate le formule \ref{EQN:esempio},\ref{EQN:esempio2} riproposte di seguito con lo stesso testo:
+
+Esempio di equazione:
+\begin{equation}
+\label{EQN:esempio3}
+a + b = 42
+\end{equation}
+L'equazione si richiama nel testo così: \eqref{EQN:esempio3}. Esempio di due equazioni incolonnate:
+\begin{equation}
+\label{EQN:esempio4}
+\begin{array}{rcl}
+a + b & = & 42 \\
+d + e & = & f
+\end{array}
+\end{equation}
+
+Mentre tra la \eqref{EQN:esempio} e la \eqref{EQN:esempio2} il testo inizia un nuovo capoverso, tra la \eqref{EQN:esempio3} e la \eqref{EQN:esempio4} no. 
+
+Altro esempio di formula, questa volta in linea: $4+m+c=44\,gatti$ in fila per $6$ col resto di $2$.
+
+\bigskip
+
+\lipsum[1-10]

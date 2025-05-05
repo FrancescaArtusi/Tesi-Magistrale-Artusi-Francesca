@@ -1,0 +1,187 @@
+%%% LaTeX Template
+%%% This template is made for project reports
+%%%	You may adjust it to your own needs/purposes
+%%%
+%%% Copyright: http://www.howtotex.com/
+%%% Date: March 2011
+
+%%% Preamble
+\documentclass[paper=a4, fontsize=11pt]{scrartcl}	% 
+%Article class of KOMA-script with 11pt font and a4 format
+\usepackage[T1]{fontenc}
+\usepackage{fourier}
+
+\usepackage[english]{babel}															% English language/hyphenation
+\usepackage[protrusion=true,expansion=true]{microtype}				% Better typography
+\usepackage{amsmath,amsfonts,amsthm}										% Math packages
+\usepackage[pdftex]{graphicx}														% Enable pdflatex
+\usepackage{url}
+
+
+
+%%% Custom sectioning (sectsty package)
+\usepackage{sectsty}												% Custom sectioning (see below)
+\allsectionsfont{\centering \normalfont\scshape}	% Change font of al section commands
+
+
+%%% Custom headers/footers (fancyhdr package)
+\usepackage{fancyhdr}
+\pagestyle{fancyplain}
+\fancyhead{}														% No page header
+%\fancyfoot[L]{\small \url{HowToTeX.com}}		% You may remove/edit this line 
+\fancyfoot[C]{}													% Empty
+\fancyfoot[R]{\thepage}									% Pagenumbering
+\renewcommand{\headrulewidth}{0pt}			% Remove header underlines
+\renewcommand{\footrulewidth}{0pt}				% Remove footer underlines
+\setlength{\headheight}{13.6pt}
+
+
+%%% Equation and float numbering
+\numberwithin{equation}{section}		% Equationnumbering: section.eq#
+\numberwithin{figure}{section}			% Figurenumbering: section.fig#
+\numberwithin{table}{section}				% Tablenumbering: section.tab#
+
+
+%%% Maketitle metadata
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} 	% Horizontal rule
+
+\title{
+		%\vspace{-1in} 	
+		\usefont{OT1}{bch}{b}{n}
+		\normalfont \normalsize \textsc{Tesi in \LaTeX} \\ [25pt]
+		\horrule{0.5pt} \\[0.4cm]
+		\huge Scrivere la Tesi in \LaTeX~per i \\Corsi di Laurea in Ingegneria Meccatronica \\
+		\Large versione 0.4
+		\horrule{2pt} \\[0.5cm]
+}
+\author{
+		\normalfont 								\normalsize
+         Michele Vivian e Fabio Tinazzi \\[-3pt]		\normalsize
+   %     \today
+}
+\date{}
+
+%%% Begin document
+\begin{document}
+\maketitle 
+
+Il documento che stai leggendo \`e un piccolo aiuto per muovere i primi passi nella scrittura della tua tesi in \LaTeX. 
+Insieme a questo documento dovresti avere anche un archivio che contiene tutti i file necessari per impostare una versione beta del tuo elaborato. 
+Verifica inoltre di avere sempre l'ultima versione del template sul sito del dipartimento.
+
+\section{Introduzione}
+\subsection{Il software}
+Per scrivere la vostra tesi in \LaTeX~dovete utilizzare una distribuzione adatta per il vostro sistema operativo:
+\begin{description}
+\item[Windows:] scaricare la distribuzione MiKTeX (versione 2.9 o superiore) e scegliere uno degli editor tra quelli proposti (TexMaker, WinEdit o Texnicenter). 
+\item[Mac:] scaricare il software MacTeX (versione 2011 o superiore) e anche in questo caso scegliere uno degli editor che preferite.
+\item[Linux:] installare TeX live: \texttt{apt-get install texlive}.
+\end{description}
+
+Probabilmente dovrete installare nuovi pacchetti \LaTeX: MiKTeX permette di farlo facilmente. 
+Non abbiamo volutamente inserito informazioni dettagliate su questi passi perch\'e rischiano di diventare obsolete e potete trovarle facilmente e autonomamente con un motore di ricerca. 
+Vi segnaliamo solo i siti web gestiti dal GuiT (Gruppo Utilizzatori italiani di TeX) e la pagina di Lorenzo Pantieri, dove troverete anche la utile guida \emph{L'arte di scrivere con \LaTeX}. 
+
+\subsection{Il template}
+Il template proposto deriva direttamente dal template \emph{ClassicThesis v. 4.0} disponibile al sito \url{http://code.google.com/p/classicthesis/}. 
+Se lo stile vi piace e volete ringraziare chi lo ha sviluppato potete mandargli una cartolina\footnote{ \url{http://code.google.com/p/classicthesis/wiki/Postcards?tm=6}.}
+
+A partire da questo stile abbiamo inserito alcune modifiche per rispettare le esigenze di impaginazione della pagina principale dell'Universit\`a di Padova e la necessit\`a di supportare anche la lingua italiana. 
+Per semplificarvi la vita evitate di introdurre modifiche nell'organizzazione delle cartelle e dei file che compongono il documento finale. 
+Mantenere l'ordine proposto semplificher\`a la stesura della tesi.
+
+Alla prima esecuzione potete ottenere degli errori o warning. 
+I problemi legati alla mancanza di citazioni verr\`a risolta con la procedura per la gestione della bibliografia che riportiamo successivamente. 
+Altri errori legati alla mancanza di pacchetti \LaTeX~devono essere invece risolti. 
+Se il gestore di pacchetti \`e impostato in modo da scaricare automaticamente i pacchetti mancanti, l'unico problema sar\`a dover attendere un paio di minuti mentre il sistema aggiorna tutto quello che manca. 
+Si raccomanda quindi di eseguire la prima compilazione con il PC collegato alla rete.
+ 
+\section{Utilizzo} 
+Seguite i seguenti passi per installare il template ed iniziare a lavorare sul vostro elaborato:
+\begin{enumerate}
+\item estrarre il contenuto dalla cartella compressa 
+\item aprire con l'editor scelto il file \texttt{tesiMeccatronica.tex}: il file \`e (quasi) pronto per l'uso.
+\item aprire con l'editor il file che si desidera modificare.\\
+Dopo le aggiunte, salvare il file (ad esempio \texttt{1\_Titolo\_Primo\_Capitolo.tex}), tornare al file principale (ossia \texttt{ClassicThesis.tex}) e compilare (in Texmaker PDFLaTex).\\
+Dal file \texttt{.tex} potete ottenere file di diverso formato. Selezionate il vostro editor in modo che l'output prodotto sia un pdf.
+\item Per ottenere la \emph{bibliografia} correttamente sono necessari i seguenti passi:
+\begin{enumerate}
+\item scrivere nel file \texttt{Bibliografia.bib} \footnote{Si trova nella cartella \texttt{MaterialeInizialeFinale}} tutti i dati relativi alla fonte che si vuole citare. Spesso tali informazioni si trovano nello stesso posto in cui si scaricano gli articoli (nei siti personali dei Professori, nelle librerie online come IEEEXplore: l'importante \`e cercare la citazione in formato BibTex);
+\item si scrive nel testo, nel posto desiderato, la citazione a tale articolo; 
+\item si compila con PDFLaTex una prima volta, quindi 
+\item si compila con BibTex e infine  
+\item si compila 2 volte con PDFLaTex.
+\end{enumerate}
+Tale procedura va fatta \underline{ogni volta} che si inserisce una nuova fonte da citare. 
+Successivamente, si potr\`a citare l'opera/e ogni volta che si desidera e la citazione si otterr\`a compilando semplicemente con PDFLatex. 
+Se si deve inserire a mano una nuova fonte, fare riferimento alle guide online che si trovano sul GuiT o sul sito di Lorenzo Pantieri (L'Arte di scrivere su \LaTeX~su tutte...).
+
+Se si ottengono errori dopo aver seguito attentamente questo procedimento, essi dipendono da quanto si \`e scritto. 
+N.B. Questo procedimento \`e necessario anche al primo utilizzo del template, in modo da visualizzare correttamente la bibliografia di esempio.
+
+N.B.2: In alcune citazioni BiBTex non vengono rispettate le lettere maiuscole. 
+Se si osserva l'esempio di bibliografia nel file \texttt{Bibliography.bib}, si nota che il \emph{title} e il \emph{booktitle} della prima citazione ha tutte le lettere maiuscole circondate da parentesi graffe. 
+Ci\`o \`e indispensabile affinch\'e vengano stampate in maiuscolo anche nel file pdf finale.
+
+\item Per modificare i campi del \emph{frontespizio} \`e necessario aprire e modificare il file di configurazione\footnote{ \texttt{classicthesis-config.tex}}.
+Ad esempio: 
+
+
+\texttt{\textbackslash newcommand{\textbackslash myName}{ Nome Cognome\textbackslash xspace}}
+
+
+diventer\`a
+
+
+\texttt{\textbackslash newcommand{\textbackslash myName}{ Mario Rossi\textbackslash xspace}}.
+
+
+In questi campi bisogna prestare attenzione alle eventuali lettere accentate: le lettere italiane accentate non vengono riconosciute da \LaTeX\ (solo in questa parte del documento). 
+Per aggirare questo problema basta anteporre la lettera da accentare con il comando \texttt{\textbackslash `} (copiare ed incollare i due caratteri precedenti), ad esempio: pear\`a si scrive \texttt{pear\textbackslash `a}.
+\end{enumerate}
+
+\section{Tips and Tricks}
+I file \texttt{.tex} inclusi nell'archivio vi permettono di iniziare velocemente ad inserire contenuti nel vostro elaborato. 
+Nel seguito trovate alcune osservazioni ai problemi che di solito si trovano durante la stesura della vostra tesi.
+\begin{itemize}
+\item Leggere la guida L'arte di scrivere con \LaTeX~(almeno il primo capitolo). \'E di vitale (la vostra) importanza capire che \LaTeX~NON \`e un editor di testo wysiwyg\footnote{WhatYouSeeIsWhatYouGet}.  Perci\`o figure e tabelle vanno adeguatamente trattate (per questo andrebbe letto anche il capitolo relativo a queste ultime, sempre nella guida). 
+\item Installare il dizionario italiano: utile per correggere errori di digitazione. La procedura di installazione varia a seconda della vostra distribuzione (cercate su Google).
+\item Al termine di ogni frase conclusa con un punto, si consiglia di andare a capo. Questo rende pi\`u ordinato e leggero il testo nell'editor senza alcuna conseguenza sul documento pdf prodotto.
+Questo approccio permette anche di semplificare l'individuazione degli errori (gli editor permettono di inserire il numero di riga ed \`e quindi facile, con linee brevi, trovare dove si trova il problema). 
+\item Lasciare una riga vuota tra due paragrafi permetter\`a di ottenere un testo indentato (cio\`e con un ``rientrino'') nel file pdf prodotto: con esso si identifica l'inizio di un capoverso che influenzer\`a pesantemente (nel bene e nel male) il risultato finale. \`E un accorgimento fondamentale per una corretta stesura del testo e non va assolutamente eliminato. Le motivazioni dettagliate si trovano nella guida L'arte di scrivere con \LaTeX.
+\item Non scrivere MAI l'estensione dei file delle figure in \LaTeX. 
+
+Ad esempio:\\
+\hspace{1 cm} \texttt{\textbackslash includegraphics[width=0.45\textbackslash textwidth]\{./Figure/ExampleFigure1\}}\\
+e NON:\\
+\hspace{1 cm} \texttt{\textbackslash inludegraphics[width=0.45\textbackslash textwidth]\{./Figure/ExampleFigure1.jpeg\}}
+\item Il posizionamento delle figure (e delle tabelle) \`e un grosso vantaggio di \LaTeX, ma anche la maggiore fonte di pseudoproblemi: \`e basilare il corretto utilizzo dei comandi posti tra parentesi quadre dopo \texttt{\textbackslash begin\{figure\}[ ]}: tutto dipende dalla dimensione dell'immagine e quindi sta allo scrittore indicarne il corretto posizionamento. Brevemente:
+\begin{description}
+\item[h] sta per here (da usare tutte le volte che serve... cio\`e quasi mai durante la prima stesura del testo);
+\item[tb] significa top o bottom. Quando l'immagine \`e abbastanza piccola (meno di met\`a pagina). Da preferire durante la stesura;
+\item[p] ovvero page: usato da solo dedica un'intera pagina alla figura (per figura grandi). 
+\end{description}
+Gli ultimi due comandi sono quelli da preferire durante la stesura: infatti la collocazione delle figura cambier\`a molto di volta in volta che si aggiunger\`a/modificher\`a il testo. 
+Non ha quindi senso perdere tempo all'inizio della stesura, ma una volta finito il capitolo (e dopo la correzione del relatore), si pu\`o procedere alla sistemazione finale delle figure. 
+Come al solito, consultare la guida L'Arte per info pi\`u dettagliate.
+
+\item Si consiglia di utilizzare il pi\`u possibile immagini salvate in formato vettoriale che assicurano una migliore qualit\`a dell'immagine sia nella visualizzazione a video che nella stampa. Esempio di formato: eps.
+\item Si possono fare figure con immagini multiple: cercare subfloat per \LaTeX~su internet (ad esempio nel GuiT).
+\item Per le tabelle, fare riferimento al capitolo relativo nella guida L'Arte. Vale la pena leggerlo, piuttosto che perdere ore in fase di revisione o ottenere risultati scadenti.
+\item Se l'errore di compilazione persiste, forse \`e una buona idea fare una buona ricerca su internet... \LaTeX~esiste da quarant'anni: sembrano sufficienti affinch\`e qualcuno che ha gi\`a riscontrato quel problema abbia poi trovato una soluzione (e l'abbia perfino postata in qualche forum).
+\item Spesso servono un paio di compilazioni prima di vedere l'effettivo risultato atteso: \`e questo il caso di riferimenti (soprattutto a figure o a tabelle appena inserite).
+\item MAI modificare il file \texttt{classicthesis.sty}. I margini e tutto il resto sono stati impostati in questo modo per valide ragioni.
+\item Per le label delle citazioni, non esiste un preciso standard, ma risulta utile usare il nome degli autori (es. Bolognani-Zigliotto) ed eventualmente la prima parola significativa del titolo dell'articolo (es. BolognaniZigliotto-SelfCommissioning).
+\item Il warning:
+\begin{verbatim}
+Class scrreprt Warning:
+\float@addtolists detected!
+(scrreprt) You should use the features of package `tocbasic'
+(scrreprt) instead of \float@addtolists.
+(scrreprt) Support for \float@addtolists may be removed from
+(scrreprt) `scrreprt' soon .
+\end{verbatim}
+che si potrebbe ottenere ad ogni compilazione \`e dovuto ad un problema della classe ClassicThesis.
+Perci\`o non \`e eliminabile, ma risulta essere del tutto innocuo.
+\end{itemize}
+\end{document}
