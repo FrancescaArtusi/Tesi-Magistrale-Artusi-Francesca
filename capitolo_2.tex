@@ -1,0 +1,105 @@
+\documentclass[11pt]{report}
+% -------------------------------------------------------------------------------- %
+
+% *** LANGUAGE ***
+\usepackage[english,italian]{babel}
+\usepackage[utf8]{inputenc}
+
+% *** PAGE LAYOUT ***
+\usepackage{geometry}     
+\geometry{a4paper,tmargin=2cm,bmargin=2cm,lmargin=2cm,rmargin=2cm}
+\usepackage{parskip}  
+\usepackage{enumerate}  
+\setlength{\parindent}{0pt}
+\usepackage{subcaption}
+\usepackage[font=small,labelfont=bf]{caption}
+
+
+% *** DEFAULT FONT SELECTION ***
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\renewcommand*\familydefault{\sfdefault} %	Only if the base font of the document is to be sans serif
+
+% *** GRAPHICS *** 
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{float}
+
+% *** AMS MATH ***
+\usepackage{amsmath, amsfonts, amssymb}
+
+% *** ADDITIONAL MATH ***
+\usepackage{empheq}
+
+% *** TABLES ***
+\usepackage{booktabs,topcapt}
+\usepackage{multirow}
+
+%*** BIBLIOGRAFIA ***
+\usepackage{url}  % Per URL cliccabili
+\usepackage[utf8]{inputenc}
+\usepackage{csquotes}       % Consigliato con biblatex
+\usepackage[backend=biber, style=numeric, url=true]{biblatex}
+\addbibresource{bibliografia.bib}  % Nome file .bib
+
+
+
+\begin{document}
+	
+	2.1 – Il veicolo prototipale
+	→ Contesto del mezzo per il quale il software è pensato
+	
+	2.2 – Panoramica sui veicoli offroad
+	→ Inquadramento delle esigenze dinamiche e ambientali
+	
+	2.3 – Il sistema attuale di bloccaggio
+	→ Come funziona ora e quali limiti ha
+	
+	2.4 – Collocazione e ruolo del software di controllo
+	→ Cosa deve fare il software all’interno del sistema veicolo
+	
+	2.5 – Ciclo di sviluppo software automotive
+	→ In quale fase si inserisce il progetto, con quali strumenti
+	
+	2.6 – Architettura centraline
+	→ Quali centraline sono coinvolte e come interagiscono
+	
+	2.7 –Architettura centraline
+	→ Come le centraline si parlano, struttura del bus
+	
+	\chapter{Stato dell'arte}
+	
+	\section{Veicolo prototipale}
+
+	L'architettura di controllo software per il bloccaggio del sistema differenziale oggetto di questo lavoro è stato progettato per essere, almeno in teoria, applicabile a una vasta gamma di veicoli a trazione integrale (4×4) destinati a operare in contesti fuoristrada. Tuttavia, per sviluppare, testare e validare concretamente la logica di controllo proposta, è stato necessario fare riferimento a un veicolo prototipale specifico, scelto per le sue caratteristiche costruttive e architettoniche allineate con gli obiettivi del progetto.
+	
+	Il veicolo scelto come riferimento è un mezzo commerciale leggero 4×4, con una struttura a telaio a longheroni, progettato per affrontare condizioni di lavoro impegnative, sia in ambito civile che militare. Le sue caratteristiche di modularità, robustezza e adattabilità lo rendono una piattaforma ideale per lo studio di  sottosistemi meccanici ed elettronici aggiuntivi.
+	
+	Dal punto di vista tecnico, questo veicolo pesa tra le 5 e 7 tonnellate e presenta una trasmissione manuale a 6 marce, più la retromarcia. È dotato di un sistema di trazione 4×4 e sospensioni progettate per affrontare percorsi off-road. La sua velocità massima raggiunge i 130 km/h, e l'altezza da terra, insieme agli angoli di attacco e uscita, assicura una buona manovrabilità su terreni difficili. Il sistema frenante è a disco su entrambi gli assi, mentre l'impianto elettrico a 12 V alimenta le centraline e gli attuatori distribuiti lungo il veicolo.
+	
+	In particolare, la presenza di centraline elettroniche dedicate, una rete CAN per la comunicazione tra i vari sottosistemi, sensori di velocità delle ruote e attuatori già predisposti per altre funzioni veicolari, consente di simulare in modo realistico l’integrazione del software proposto. Questo approccio ci permette di sviluppare e validare il controllo in un contesto tecnico credibile, mantenendo al contempo la riservatezza sui dettagli specifici del veicolo reale.
+	
+	\section{Panoramica veicoli off-road }
+	
+	I veicoli off-road sono progettati per affrontare situazioni di guida impegnative, dove il terreno può essere irregolare, scivoloso o addirittura assente. Questi mezzi sono pensati per operare in ambienti difficili, come strade sterrate, terreni fangosi o rocciosi, cantieri, aree rurali o zone di crisi. Per affrontare queste sfide, devono garantire una buona trazione, un’adeguata altezza da terra, un telaio robusto e sistemi di trasmissione capaci di distribuire efficacemente la coppia motrice su tutte le ruote.
+	
+	Dal punto di vista normativo, i veicoli off-road destinati all'uso civile vengono classificati, secondo la normativa europea 2018/858, nella categoria N se sono destinati al trasporto merci e nella categoria M se si occupano del trasporto di persone. In particolare, un veicolo come quello di riferimento in questo lavoro, con una massa complessiva superiore a 3,5 tonnellate e trazione integrale, potrebbe rientrare nella categoria N2, con una possibile ulteriore classificazione G per indicare le sue capacità fuoristrada (quindi N2G). Questa sigla identifica veicoli con caratteristiche tecniche specifiche, come l’angolo di attacco e uscita, l’altezza minima da terra e, tra le altre, la presenza di dispositivi di bloccaggio dei differenziali.\cite{REGOLAMENTO(UE)2018/858}
+	
+	Nel mondo militare, invece, ci si allontana dalle omologazioni europee. I veicoli progettati per applicazioni difensive non sono soggetti alle stesse normative e vengono sviluppati secondo specifiche tecniche interne o standard internazionali come quelli definiti dalla NATO. In questo caso, spesso si tratta di versioni derivate da veicoli civili, ma modificate per garantire maggiore resistenza, protezione e capacità di movimento in condizioni estreme.
+	
+	Nel nostro caso, il software di controllo che stiamo studiando è progettato per essere applicato, almeno in teoria, a veicoli fuoristrada a trazione integrale che operano in entrambi questi contesti. Abbiamo scelto un veicolo prototipale con caratteristiche compatibili per testarne il funzionamento, ma l’obiettivo rimane quello di sviluppare una soluzione che possa essere adattata anche ad altre piattaforme, civili o militari, purché dotate dell’hardware necessario (rete CAN, attuatori e sensori).
+	
+	
+	
+	
+	\section{Il sistema attuale di bloccaggio}
+	\section{Collocazione e ruolo del software di controllo}
+	\section{Architettura centraline}
+	\section{Architettura centraline}
+	
+	
+	\printbibliography
+
+
+	
+\end{document}
