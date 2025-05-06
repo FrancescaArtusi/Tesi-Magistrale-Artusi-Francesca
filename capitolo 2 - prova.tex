@@ -64,66 +64,32 @@
 	2.6 – Architettura centraline
 	→ Quali centraline sono coinvolte e come interagiscono
 	
-	2.7 – Comunicazione CAN
+	2.7 –Architettura centraline
 	→ Come le centraline si parlano, struttura del bus
 	
 	\chapter{Stato dell'arte}
 	
 	\section{Veicolo prototipale}
+
+	L'architettura di controllo software per il bloccaggio del sistema differenziale oggetto di questo lavoro è stato progettato per essere, almeno in teoria, applicabile a una vasta gamma di veicoli a trazione integrale (4×4) destinati a operare in contesti fuoristrada. Tuttavia, per sviluppare, testare e validare concretamente la logica di controllo proposta, è stato necessario fare riferimento a un veicolo prototipale specifico, scelto per le sue caratteristiche costruttive e architettoniche allineate con gli obiettivi del progetto.
+	
+	Il veicolo scelto come riferimento è un mezzo commerciale leggero 4×4, con una struttura a telaio a longheroni, progettato per affrontare condizioni di lavoro impegnative, sia in ambito civile che militare. Le sue caratteristiche di modularità, robustezza e adattabilità lo rendono una piattaforma ideale per lo studio di  sottosistemi meccanici ed elettronici aggiuntivi.
+	
+	Dal punto di vista tecnico, questo veicolo pesa tra le 5 e le 7 tonnellate e presenta una trasmissione manuale a 6 marce, più la retromarcia. È dotato di un sistema di trazione 4×4 e sospensioni progettate per affrontare percorsi off-road. La sua velocità massima raggiunge i 130 km/h, e l'altezza da terra, insieme agli angoli di attacco e uscita, assicura una buona manovrabilità su terreni difficili. Il sistema frenante è a disco su entrambi gli assi, mentre l'impianto elettrico a 12 V alimenta le centraline e gli attuatori distribuiti lungo il veicolo.
+	
+	In particolare, la presenza di centraline elettroniche dedicate, una rete CAN per la comunicazione tra i vari sottosistemi, sensori di velocità delle ruote e attuatori già predisposti per altre funzioni veicolari, consente di simulare in modo realistico l’integrazione del software proposto. Questo approccio ci permette di sviluppare e validare il controllo in un contesto tecnico credibile, mantenendo al contempo la riservatezza sui dettagli specifici del veicolo reale.
+	
+	
+	
+	
 	
 	
 	\section{Panoramica veicoli off-road }
+	\section{Il sistema attuale di bloccaggio}
+	\section{Collocazione e ruolo del software di controllo}
+	\section{Architettura centraline}
+	\section{Architettura centraline}
 	
-	\section{Modellazione del veicolo e condizioni operative}
-	
-	Per l’implementazione del controllo, è fondamentale un modello dinamico semplificato del veicolo che consenta di stimare:
-	
-	\begin{itemize}
-		\item la velocità angolare delle ruote;
-		\item la coppia motrice;
-		\item il coefficiente di aderenza ruota-suolo;
-		\item eventuali differenze tra ruote (indicativo di slittamento).
-	\end{itemize}
-	
-	Il sistema verrà modellato in \textbf{Simulink} per agevolare l’integrazione con tool di generazione automatica del codice (\textit{Embedded Coder}).
-	
-	\section{Strategie di controllo automatico}
-	
-	Una logica di controllo efficace per il bloccaggio automatico del differenziale dovrebbe tenere conto di condizioni specifiche, come:
-	
-	\begin{itemize}
-		\item slittamento di una ruota rispetto all’altra sull’asse;
-		\item velocità del veicolo;
-		\item condizioni di trazione (derivate indirettamente);
-		\item richieste del conducente (acceleratore, freno).
-	\end{itemize}
-	
-	Una strategia semplice potrebbe essere definita in base al \textbf{differenziale di velocità} tra le ruote di uno stesso asse. Se questo valore supera una soglia per un tempo definito, si attiva il blocco:
-	
-	\begin{equation}
-		\Delta \omega = |\omega_{sx} - \omega_{dx}| > \Delta \omega_{th}
-	\end{equation}
-	
-	Dove:
-	\begin{itemize}
-		\item $\omega_{sx}$ e $\omega_{dx}$ sono le velocità angolari delle ruote sinistra e destra;
-		\item $\Delta \omega_{th}$ è la soglia di attivazione;
-	\end{itemize}
-	
-	A questa logica base, si possono aggiungere criteri di isteresi e tempo minimo di persistenza, per evitare attivazioni errate o instabili.
-	
-	\section{Architetture software per il controllo veicolo}
-	
-	Per l’implementazione, il controllo software sarà suddiviso in moduli:
-	
-	\begin{itemize}
-		\item \textbf{Acquisizione sensori}: lettura segnali da ABS, encoder ruota, ecc.
-		\item \textbf{Elaborazione segnali}: filtraggio, calcolo del delta velocità;
-		\item \textbf{Logica decisionale}: attivazione/disattivazione blocco;
-		\item \textbf{Uscita}: comando all’attuatore del blocco.
-	\end{itemize}
-	
-	Il tutto sarà progettato in ambiente \textbf{Simulink}, con successiva generazione automatica del codice in C per implementazione sulla centralina ECU tramite toolchain MATLAB.
-	
+
 	
 \end{document}
