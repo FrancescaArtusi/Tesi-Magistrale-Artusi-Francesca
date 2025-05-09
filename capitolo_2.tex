@@ -46,27 +46,6 @@
 
 \begin{document}
 	
-	2.1 – Il veicolo prototipale
-	→ Contesto del mezzo per il quale il software è pensato
-	
-	2.2 – Panoramica sui veicoli offroad
-	→ Inquadramento delle esigenze dinamiche e ambientali
-	
-	2.3 – Il sistema attuale di bloccaggio
-	→ Come funziona ora e quali limiti ha
-	
-	2.4 – Collocazione e ruolo del software di controllo
-	→ Cosa deve fare il software all’interno del sistema veicolo
-	
-	2.5 – Ciclo di sviluppo software automotive
-	→ In quale fase si inserisce il progetto, con quali strumenti
-	
-	2.6 – Architettura centraline
-	→ Quali centraline sono coinvolte e come interagiscono
-	
-	2.7 –Architettura centraline
-	→ Come le centraline si parlano, struttura del bus
-	
 	\chapter{Stato dell'arte}
 	
 	\section{Veicolo prototipale}
@@ -79,23 +58,51 @@
 	
 	In particolare, la presenza di centraline elettroniche dedicate, una rete CAN per la comunicazione tra i vari sottosistemi, sensori di velocità delle ruote e attuatori già predisposti per altre funzioni veicolari, consente di simulare in modo realistico l’integrazione del software proposto. Questo approccio ci permette di sviluppare e validare il controllo in un contesto tecnico credibile, mantenendo al contempo la riservatezza sui dettagli specifici del veicolo reale.
 	
+	
+	% immagine del veicolo senza icone o merche, disegno
+	
 	\section{Panoramica veicoli off-road }
 	
 	I veicoli off-road sono progettati per affrontare situazioni di guida impegnative, dove il terreno può essere irregolare, scivoloso o addirittura assente. Questi mezzi sono pensati per operare in ambienti difficili, come strade sterrate, terreni fangosi o rocciosi, cantieri, aree rurali o zone di crisi. Per affrontare queste sfide, devono garantire una buona trazione, un’adeguata altezza da terra, un telaio robusto e sistemi di trasmissione capaci di distribuire efficacemente la coppia motrice su tutte le ruote.
 	
 	Dal punto di vista normativo, i veicoli off-road destinati all'uso civile vengono classificati, secondo la normativa europea 2018/858, nella categoria N se sono destinati al trasporto merci e nella categoria M se si occupano del trasporto di persone. In particolare, un veicolo come quello di riferimento in questo lavoro, con una massa complessiva superiore a 3,5 tonnellate e trazione integrale, potrebbe rientrare nella categoria N2, con una possibile ulteriore classificazione G per indicare le sue capacità fuoristrada (quindi N2G). Questa sigla identifica veicoli con caratteristiche tecniche specifiche, come l’angolo di attacco e uscita, l’altezza minima da terra e, tra le altre, la presenza di dispositivi di bloccaggio dei differenziali.\cite{REGOLAMENTO(UE)2018/858}
 	
-	Nel mondo militare, invece, ci si allontana dalle omologazioni europee. I veicoli progettati per applicazioni difensive non sono soggetti alle stesse normative e vengono sviluppati secondo specifiche tecniche interne o standard internazionali come quelli definiti dalla NATO. In questo caso, spesso si tratta di versioni derivate da veicoli civili, ma modificate per garantire maggiore resistenza, protezione e capacità di movimento in condizioni estreme.
+	Nel mondo militare, invece, ci si discosta dalle omologazioni europee: i veicoli progettati per applicazioni difensive non sono soggetti alle stesse normative e vengono sviluppati secondo specifiche tecniche interne o standard internazionali come quelli definiti dalla NATO. In questo caso, spesso si tratta di versioni derivate da veicoli civili, ma modificate per garantire maggiore resistenza, protezione e capacità di movimento in condizioni estreme.
 	
 	Nel nostro caso, il software di controllo che stiamo studiando è progettato per essere applicato, almeno in teoria, a veicoli fuoristrada a trazione integrale che operano in entrambi questi contesti. Abbiamo scelto un veicolo prototipale con caratteristiche compatibili per testarne il funzionamento, ma l’obiettivo rimane quello di sviluppare una soluzione che possa essere adattata anche ad altre piattaforme, civili o militari, purché dotate dell’hardware necessario (rete CAN, attuatori e sensori).
 	
+	\section{Meccanismo differenziale e bloccaggio meccanico}
+	Il differenziale è un elemento meccanico cruciale nei veicoli a trazione integrale, poiché consente alle ruote calettate sullo stesso asse di ruotare a velocità diverse. Questo è fondamentale per garantire stabilità e maneggevolezza quando si affrontano curve o si guida su superfici scivolose. 
+	
+	Nei veicoli 4×4, di solito si inseriscono tre differenziali: uno anteriore, uno posteriore e uno centrale, ciascuno con il compito di distribuire la coppia tra le ruote e i due assi. Il prototipo di riferimento di questo studio è dotato di un sistema di bloccaggio dei differenziali, che permette di forzare la rotazione solidale tra gli alberi collegati, disattivando così il funzionamento differenziale. Questa funzione è particolarmente utile in condizioni di scarsa aderenza, come su terreni scivolosi o irregolari, dove una distribuzione simmetrica della coppia può migliorare la trazione.
+	
+	Il dispositivo di bloccaggio è composto da un accoppiamento meccanico rigido, attivato tramite una ghiera dentata (dog clutch), che può essere ingaggiata o disingaggiata tramite un attuatore specifico. In condizioni normali, la ghiera è libera, permettendo al differenziale di funzionare come previsto. Quando è richiesta una trazione omogenea, la ghiera viene spinta in posizione di ingaggio, accoppiando direttamente gli alberi e costringendo le ruote a girare alla stessa velocità.
+	
+	Nel veicolo prototipale, il bloccaggio è gestito da un sistema elettropneumatico: l’ingaggio della ghiera avviene tramite un cilindro pneumatico controllato da un’elettrovalvola. Quest’ultima è comandata elettricamente tramite segnale proveniente dalla centralina di controllo. La disattivazione del blocco avviene grazie a una molla di ritorno interna al cilindro, che riporta la ghiera in posizione neutra al termine del comando. Il sistema include anche sensori in grado di rilevare lo stato dell’attuatore, fornendo informazioni utili alla rete elettronica di bordo per monitorare in tempo reale la condizione di ciascun bloccaggio.
+	
+	% immagini esplicative dell'harware del differenziale e del bloccaggio: disegni tecnici, modellini esplicativi 3D, disegnetti esplicativi, foto reale.
 	
 	
 	
 	\section{Il sistema attuale di bloccaggio}
+	Nel prototipo di veicolo che stiamo esaminando, il sistema di bloccaggio dei differenziali è attualmente controllato manualmente tramite un'interfaccia fisica situata nella cabina di guida. L'attivazione o disattivazione dei bloccaggi avviene attraverso una serie di pulsanti dedicati, ognuno dei quali gestisce l'apertura o la chiusura di un'elettrovalvola collegata a un attuatore pneumatico. Quest'ultimo, come spiegato nella sezione precedente, agisce meccanicamente sul differenziale, permettendone i funzionamento.
+	
+	Ogni pulsante sull'interfaccia di comando è legato a un differenziale specifico (anteriore, posteriore o centrale), consentendo all'operatore di scegliere manualmente quali differenziali bloccare in base alla situazione di guida. L'attivazione di ciascun pulsante è soggetta al rispetto di determinate condizioni operative, verificate tramite software, per garantire la sicurezza del conducente ed evitare pericolosi stress meccanici. Tra queste condizioni ci sono, ad esempio, una velocità del veicolo inferiore a 5 km/h, il cambio in folle e il rispetto di una sequenza prestabilita per l'attivazione dei pulsanti. Inoltre, l'interfaccia è dotata di spie che mostrano lo stato attuale dei differenziali, grazie ai segnali forniti dai sensori di finecorsa integrati negli attuatori.
+	
+	Questo tipo di gestione, pur offrendo semplicità e affidabilità, ha alcune limitazioni operative. Per utilizzare correttamente il sistema, è necessario non solo un intervento diretto e tempestivo da parte del conducente, ma anche una buona comprensione del veicolo e delle logiche che governano l’abilitazione del bloccaggio. L’operatore deve essere in grado di valutare in tempo reale le condizioni del terreno e decidere quando e quali bloccaggi attivare per prendere decisioni efficaci. In situazioni operative complesse o dinamiche, questo processo può non essere immediato, con il rischio di attivazioni tardive o inappropriate, che potrebbero compromettere l’efficacia della trazione o aumentare il rischio di stress meccanici indesiderati.
+	
+	La configurazione attuale rappresenta quindi un sistema funzionale allo scopo, ma apre la strada allo sviluppo di una logica automatizzata che possa supportare il conducente nelle fasi decisionali, contribuendo a migliorare l’efficienza operativa del veicolo in scenari fuoristrada.
+	
+	% possibile immagine dei tre pulsanti del daily ma opzionale
+	
 	\section{Collocazione e ruolo del software di controllo}
+	
+	
+	
+	
+	
 	\section{Architettura centraline}
-	\section{Architettura centraline}
+	\section{CAN bus}
 	
 	
 	\printbibliography
